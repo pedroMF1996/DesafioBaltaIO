@@ -44,7 +44,6 @@ namespace DesafioBaltaIO.Application.Ibge.Commands
 
             await _localidadeReporitory.CadastrarLocalidadeAsync(localidade);
 
-            //Adicionar o evendo de associacao do cadastrante
             localidade.AddDomainEvent(new LocalidadeCadastradaEvent(localidade.Codigo));
 
             return await Commit(_localidadeReporitory.UnitOfWork);
