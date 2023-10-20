@@ -1,7 +1,6 @@
 ﻿using DesafioBaltaIO.Application.Ibge.DTOs;
 using DesafioBaltaIO.Application.Ibge.Query.Interface;
 using DesafioBaltaIO.Data.IBGE;
-using DesafioBaltaIO.Domain.IBGE.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace DesafioBaltaIO.Application.Ibge.Query
