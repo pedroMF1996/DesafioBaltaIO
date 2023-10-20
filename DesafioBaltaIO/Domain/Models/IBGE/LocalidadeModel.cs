@@ -8,6 +8,7 @@ namespace DesafioBaltaIO.Domain.Models.IBGE
         public string Codigo { get; private set; }
         public string Estado { get; private set; }
         public string Cidade { get; private set; }
+        public Guid? CadastradoPor {  get; private set; }
 
         protected LocalidadeModel()
         {}
@@ -22,19 +23,28 @@ namespace DesafioBaltaIO.Domain.Models.IBGE
         public bool AlterarEstado(string estado)
         {
             Estado = estado;
-            return IsValid();
+            return new LocalidadeEstadoNaoNuloOuVazioSpecification().IsSatisfiedBy(this);
         }
 
         public bool AlterarCidade(string cidade)
         {
             Cidade = cidade;
-            return IsValid();
+            return new LocalidadeCidadeNaoNuloOuVazioSpecification().IsSatisfiedBy(this);
         }
 
         public bool AlterarCodigo(string codigo)
         {
             Codigo = codigo;
-            return IsValid();
+            return new LocalidadeCodigoNaoNuloOuVazioSpecification()
+                .And(new LocalidadeCodigoEhNumeroSpecification())
+                .And(new LocalidadeCodigoNoPadraoSpecification())
+                .IsSatisfiedBy(this);
+        }
+
+        public bool AssociarCadastrante(Guid cadastradoPor)
+        {
+            CadastradoPor = cadastradoPor;
+            return new LocalidadeCadastradoPorNaoVazioSpecification().IsSatisfiedBy(this);
         }
 
         public bool IsValid()

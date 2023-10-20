@@ -104,5 +104,30 @@ namespace DesafioBaltaIO.Tests
         {
             Assert.True(Localidade.AlterarCodigo(codigo));
         }
+
+        [Theory]
+        [InlineData("00000000-0000-0000-0000-000000000000")]
+        [InlineData("f47ac10b-58cc-4372-a567-0e02b2c3d479")]
+        [InlineData("6f3dbda5-6366-4fc7-b9f3-1312a23d0b4b")]
+        [InlineData("a5a913cc-9b3d-4c19-8d12-7f6f9e8bca54")]
+        [InlineData("d5872479-61c1-4755-a1a3-4e77d7e4b04e")]
+        [InlineData("9a3db232-5a0d-4859-9b34-9c2d4a5bfe5c")]
+        [InlineData("cf6ffde0-25a6-4f76-81e0-8c746a146d0f")]
+        [InlineData("7c547baf-76d7-482e-8bea-9d14df2ea83c")]
+        [InlineData("21cf00d7-e729-4f97-a109-14d4eb7a1632")]
+        [InlineData("be8d1c3d-9f0a-4583-a9a3-3d7a82dbdf7e")]
+        [InlineData("3d7a82db-d7e4-4a9a-9834-9a0f-d3c1d8e8eb21")]
+        [InlineData("789bcdf2-3b4a-4fa7-8e0d-8ddae9229905")]
+        [InlineData("c1c1c1c1-c1c1-4c1c-c1c1-c1c1c1c1c1c1")]
+        [InlineData("aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa")]
+        [InlineData("bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbbb")]
+        public void AssociarCadastranteComSucesso(string cadastradoPor)
+        {
+            Guid cadastradoPorGuid;
+            if (!Guid.TryParse(cadastradoPor, out cadastradoPorGuid))
+                Assert.Fail($"Registro {cadastradoPor} nao e um guid");
+
+            Assert.True(Localidade.AssociarCadastrante(cadastradoPorGuid));
+        }
     }
 }
