@@ -1,4 +1,4 @@
-﻿using DesafioBaltaIO.Domain.Models.IBGE;
+﻿using DesafioBaltaIO.Domain.IBGE.Models;
 using Microsoft.EntityFrameworkCore;
 using NetDevPack.Data;
 using NetDevPack.Domain;
