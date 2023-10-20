@@ -3,7 +3,7 @@ using NetDevPack.Domain;
 
 namespace DesafioBaltaIO.Domain.Models.IBGE
 {
-    public class LocalidadeModel : Entity
+    public class LocalidadeModel : Entity, IAggregateRoot
     {
         public string Codigo { get; private set; }
         public string Estado { get; private set; }
