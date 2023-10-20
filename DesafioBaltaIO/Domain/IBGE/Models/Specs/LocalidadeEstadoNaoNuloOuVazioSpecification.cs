@@ -13,6 +13,6 @@ namespace DesafioBaltaIO.Domain.IBGE.Models.Specs
         }
     }
 
-#endregion
+    #endregion
 
 }
