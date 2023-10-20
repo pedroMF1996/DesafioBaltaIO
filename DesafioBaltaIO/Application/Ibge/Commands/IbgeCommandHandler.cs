@@ -1,4 +1,5 @@
-﻿using DesafioBaltaIO.Domain.IBGE.Interfaces;
+﻿using DesafioBaltaIO.Application.Ibge.Events;
+using DesafioBaltaIO.Domain.IBGE.Interfaces;
 using DesafioBaltaIO.Domain.IBGE.Models;
 using FluentValidation.Results;
 using MediatR;
@@ -36,6 +37,7 @@ namespace DesafioBaltaIO.Application.Ibge.Commands
             await _localidadeReporitory.CadastrarLocalidadeAsync(localidade);
 
             //Adicionar o evendo de associacao do cadastrante
+            localidade.AddDomainEvent(new LocalidadeCadastradaEvent(localidade.Codigo));
 
             return await Commit(_localidadeReporitory.UnitOfWork);
         }
