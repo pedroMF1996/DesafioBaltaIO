@@ -1,4 +1,4 @@
-﻿namespace DesafioBaltaIO.Domain.Models.Identity
+﻿namespace DesafioBaltaIO.Domain.Identity.Models
 {
 
     public class LoginResponseModel

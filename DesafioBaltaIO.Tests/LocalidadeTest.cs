@@ -1,4 +1,4 @@
-using DesafioBaltaIO.Domain.Models.IBGE;
+using DesafioBaltaIO.Domain.IBGE.Models;
 
 namespace DesafioBaltaIO.Tests
 {
