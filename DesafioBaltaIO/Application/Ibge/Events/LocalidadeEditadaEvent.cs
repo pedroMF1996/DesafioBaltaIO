@@ -2,14 +2,15 @@
 
 namespace DesafioBaltaIO.Application.Ibge.Events
 {
-    public class LocalidadeCadastradaEvent : Event
+    public class LocalidadeEditadaEvent : Event
     {
         public string CodigoLocalidade { get; private set; }
-        public DateTime DataCadastro { get; private set; }
+        public DateTime DataEdicao { get; private set; }
 
-        public LocalidadeCadastradaEvent(string codigoLocalidade)
+        public LocalidadeEditadaEvent(string codigoLocalidade, DateTime dataEdicao)
         {
             CodigoLocalidade = codigoLocalidade;
+            DataEdicao = dataEdicao;
         }
     }
 }

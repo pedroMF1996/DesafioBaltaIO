@@ -1,5 +1,6 @@
 ﻿using DesafioBaltaIO.Application.Ibge.Commands.Validations;
 using NetDevPack.Messaging;
+using System.Text.Json.Serialization;
 
 namespace DesafioBaltaIO.Application.Ibge.Commands
 {
@@ -7,6 +8,9 @@ namespace DesafioBaltaIO.Application.Ibge.Commands
     {
         public string CodigoAtual { get; set; }
         public string CodigoNovo { get; set; }
+
+        [JsonIgnore]
+        public DateTime DataEdicao { get; set; }
 
         protected AlterarCodigoLocalidadeCommand()
         {}

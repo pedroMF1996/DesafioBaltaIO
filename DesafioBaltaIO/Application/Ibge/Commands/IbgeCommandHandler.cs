@@ -70,6 +70,8 @@ namespace DesafioBaltaIO.Application.Ibge.Commands
 
             _localidadeReporitory.AtualizarLocalidade(localidadeExistente);
 
+            localidadeExistente.AddDomainEvent(new LocalidadeEditadaEvent(message.Codigo, message.DataEdicao));
+
             return await Commit(_localidadeReporitory.UnitOfWork);
         }
 
@@ -94,6 +96,8 @@ namespace DesafioBaltaIO.Application.Ibge.Commands
 
             _localidadeReporitory.AtualizarLocalidade(localidadeExistente);
 
+            localidadeExistente.AddDomainEvent(new LocalidadeEditadaEvent(message.CodigoNovo, message.DataEdicao));
+
             return await Commit(_localidadeReporitory.UnitOfWork);
         }
 
@@ -117,6 +121,8 @@ namespace DesafioBaltaIO.Application.Ibge.Commands
             }
 
             _localidadeReporitory.AtualizarLocalidade(localidadeExistente);
+
+            localidadeExistente.AddDomainEvent(new LocalidadeEditadaEvent(message.Codigo, message.DataEdicao));
 
             return await Commit(_localidadeReporitory.UnitOfWork);
         }
