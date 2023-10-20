@@ -26,6 +26,14 @@ namespace DesafioBaltaIO.Application.Ibge.Commands
             if (!message.IsValid())
                 return message.ValidationResult;
 
+            var localidadeExistente = await _localidadeReporitory.ObterLocalidadePorCodigoAsync(message.Codigo);
+
+            if (localidadeExistente.IsValid())
+            {
+                AddError($"Ja existe uma localidade com o codigo: {message.Codigo}");
+                return ValidationResult;
+            }
+
             var localidade = new LocalidadeModel(message.Codigo, message.Estado, message.Cidade);
 
             if(!localidade.IsValid())
