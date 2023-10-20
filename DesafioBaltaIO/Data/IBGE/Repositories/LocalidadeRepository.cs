@@ -27,19 +27,9 @@ namespace DesafioBaltaIO.Data.IBGE.Repositories
             await _dbContext.Localidades.AddAsync(localidade);
         }
 
-        public async Task<LocalidadeModel> ObterLocalidadePorCidadeAsync(string cidade)
-        {
-            return await _dbContext.Localidades.AsNoTracking().FirstOrDefaultAsync(x => x.Cidade == cidade);
-        }
-
         public async Task<LocalidadeModel> ObterLocalidadePorCodigoAsync(string codigo)
         {
             return await _dbContext.Localidades.AsNoTracking().FirstOrDefaultAsync(x => x.Codigo == codigo);
-        }
-
-        public async Task<IEnumerable<LocalidadeModel>> ObterLocalidadesPorEstadoAsync(string estado)
-        {
-            return await _dbContext.Localidades.AsNoTracking().Where(x => x.Estado ==  estado).ToListAsync();
         }
 
         public void RemoverLocalidade(LocalidadeModel localidade)
