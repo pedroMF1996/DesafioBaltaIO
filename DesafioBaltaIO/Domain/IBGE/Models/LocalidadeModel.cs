@@ -1,17 +1,17 @@
-﻿using DesafioBaltaIO.Domain.Models.IBGE.Specs;
+﻿using DesafioBaltaIO.Domain.IBGE.Models.Specs;
 using NetDevPack.Domain;
 
-namespace DesafioBaltaIO.Domain.Models.IBGE
+namespace DesafioBaltaIO.Domain.IBGE.Models
 {
     public class LocalidadeModel : Entity, IAggregateRoot
     {
         public string Codigo { get; private set; }
         public string Estado { get; private set; }
         public string Cidade { get; private set; }
-        public Guid? CadastradoPor {  get; private set; }
+        public Guid? CadastradoPor { get; private set; }
 
         protected LocalidadeModel()
-        {}
+        { }
 
         public LocalidadeModel(string codigo, string estado, string cidade)
         {
