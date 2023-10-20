@@ -17,7 +17,6 @@
 
   <ItemGroup>
     <Folder Include="Application\Autenticacao\" />
-    <Folder Include="Application\Ibge\Query\" />
   </ItemGroup>
 
 </Project>
