@@ -15,4 +15,10 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Application\Autenticacao\" />
+    <Folder Include="Application\Ibge\Event\" />
+    <Folder Include="Application\Ibge\Query\" />
+  </ItemGroup>
+
 </Project>
