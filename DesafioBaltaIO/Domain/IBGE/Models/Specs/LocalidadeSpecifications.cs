@@ -1,7 +1,7 @@
 ﻿using NetDevPack.Specification;
 using System.Linq.Expressions;
 
-namespace DesafioBaltaIO.Domain.Models.IBGE.Specs
+namespace DesafioBaltaIO.Domain.IBGE.Models.Specs
 {
 
     #region EstadoSpecification
@@ -22,7 +22,7 @@ namespace DesafioBaltaIO.Domain.Models.IBGE.Specs
         {
             return localidade => !string.IsNullOrEmpty(localidade.Cidade);
         }
-    } 
+    }
     #endregion
 
     #region CodigoSpecifications
