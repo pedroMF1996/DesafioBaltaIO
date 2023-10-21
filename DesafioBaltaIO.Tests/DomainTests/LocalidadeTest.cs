@@ -1,6 +1,6 @@
 using DesafioBaltaIO.Domain.IBGE.Models;
 
-namespace DesafioBaltaIO.Tests
+namespace DesafioBaltaIO.Tests.DomainTests
 {
     public class LocalidadeTest
     {
@@ -131,8 +131,8 @@ namespace DesafioBaltaIO.Tests
             if (!cadastranteAssociado)
                 if (DateTime.UtcNow.Ticks < dataCadastro.Ticks)
                     Assert.True(true);
-            else
-                Assert.True(cadastranteAssociado);
+                else
+                    Assert.True(cadastranteAssociado);
         }
     }
 }
