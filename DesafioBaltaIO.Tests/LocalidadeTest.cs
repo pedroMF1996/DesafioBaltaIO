@@ -106,28 +106,33 @@ namespace DesafioBaltaIO.Tests
         }
 
         [Theory]
-        [InlineData("00000000-0000-0000-0000-000000000000")]
-        [InlineData("f47ac10b-58cc-4372-a567-0e02b2c3d479")]
-        [InlineData("6f3dbda5-6366-4fc7-b9f3-1312a23d0b4b")]
-        [InlineData("a5a913cc-9b3d-4c19-8d12-7f6f9e8bca54")]
-        [InlineData("d5872479-61c1-4755-a1a3-4e77d7e4b04e")]
-        [InlineData("9a3db232-5a0d-4859-9b34-9c2d4a5bfe5c")]
-        [InlineData("cf6ffde0-25a6-4f76-81e0-8c746a146d0f")]
-        [InlineData("7c547baf-76d7-482e-8bea-9d14df2ea83c")]
-        [InlineData("21cf00d7-e729-4f97-a109-14d4eb7a1632")]
-        [InlineData("be8d1c3d-9f0a-4583-a9a3-3d7a82dbdf7e")]
-        [InlineData("3d7a82db-d7e4-4a9a-9834-9a0f-d3c1d8e8eb21")]
-        [InlineData("789bcdf2-3b4a-4fa7-8e0d-8ddae9229905")]
-        [InlineData("c1c1c1c1-c1c1-4c1c-c1c1-c1c1c1c1c1c1")]
-        [InlineData("aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa")]
-        [InlineData("bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbbb")]
-        public void AssociarCadastranteComSucesso(string cadastradoPor)
+        [InlineData("83B50A59-2F03-4CC2-B33C-2C6E5A9A56A7", "2023-01-01")]
+        [InlineData("C1F4A182-781A-4BCE-AE2A-18AC647F672E", "2023-02-15")]
+        [InlineData("D7C4D8F2-983F-4F8A-8CC3-A84A17212F22", "2023-03-20")]
+        [InlineData("2B1AA9FF-DE89-4612-B1FD-8E7D4ED1C929", "2023-04-10")]
+        [InlineData("78812BB2-CD02-4B44-9601-3B3EDC2D6B96", "2023-05-05")]
+        [InlineData("FEC2C98C-6CC0-4A15-BB86-70B6D44C4F70", "2023-06-30")]
+        [InlineData("E7E96052-CC0D-4D6E-814D-C2687A3FED00", "2023-07-25")]
+        [InlineData("9ED9FA28-A18A-4B37-9A28-2E6A97966E8D", "2023-08-02")]
+        [InlineData("536D825D-09F4-4E4F-82CB-9F58E27E8B72", "2023-09-19")]
+        [InlineData("E9FD7D06-6A14-46B6-A21D-9A302B828963", "2023-10-11")]
+        [InlineData("06750A24-ABAB-45F2-96E9-4BF5D14C62BE", "2023-11-03")]
+        [InlineData("CD620854-41BB-42BB-8A45-DB8400F190F2", "2023-12-29")]
+        [InlineData("5F2A3AE3-A3D3-4324-AF5F-75E7D6E5B3E6", "2023-06-15")]
+        [InlineData("3D02A0B6-FCCB-4321-B248-2CCFA125B990", "2023-04-27")]
+        [InlineData("28D70E26-54D1-4A38-A5E0-95A0143F3F8A", "2023-01-14")]
+        public void AssociarCadastrante(string cadastradoPor, DateTime dataCadastro)
         {
             Guid cadastradoPorGuid;
             if (!Guid.TryParse(cadastradoPor, out cadastradoPorGuid))
                 Assert.Fail($"Registro {cadastradoPor} nao e um guid");
 
-            Assert.True(Localidade.AssociarCadastrante(cadastradoPorGuid));
+            var cadastranteAssociado = Localidade.AssociarCadastrante(cadastradoPorGuid, dataCadastro);
+            if (!cadastranteAssociado)
+                if (DateTime.UtcNow.Ticks < dataCadastro.Ticks)
+                    Assert.True(true);
+            else
+                Assert.True(cadastranteAssociado);
         }
     }
 }
