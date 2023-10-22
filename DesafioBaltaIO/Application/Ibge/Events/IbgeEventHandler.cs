@@ -24,33 +24,29 @@ namespace DesafioBaltaIO.Application.Ibge.Events
         {
             try
             {
-                var localidade = await _localidadeReository.ObterLocalidadePorCodigoAsync(notification.CodigoLocalidade);
+                var localidade = _localidadeReository.ObterLocalidadeEmVigencia(notification.LocalidadeId);
 
                 if (localidade == null)
-                    throw new Exception();
+                    throw new ArgumentException("Erro ao cadastrar a localidade");
 
                 var cadastranteId = _user.GetUserId();
 
                 if (!localidade.AssociarCadastrante(cadastranteId, notification.DataCadastro))
-                    throw new Exception();
+                    throw new ArgumentException("Erro ao cadastrar a localidade");
                                 
                 _localidadeReository.AtualizarLocalidade(localidade);
 
                 await _localidadeReository.UnitOfWork.Commit();
             }
-            catch (InvalidOperationException)
+            catch (ArgumentException err)
             {
-                await CreateRollBack("Erro ao cadastrar a localidade", notification.CodigoLocalidade);
-            }
-            catch (Exception)
-            {
-                await CreateRollBack("Erro ao cadastrar a localidade", notification.CodigoLocalidade);
+                await CreateRollBack(err.Message, notification.CodigoLocalidade);
             }
         }
 
         public async Task Handle(LocalidadeEditadaEvent notification, CancellationToken cancellationToken)
         {
-            var localidade = await _localidadeReository.ObterLocalidadePorCodigoAsync(notification.CodigoLocalidade);
+            var localidade = _localidadeReository.ObterLocalidadeEmVigencia(notification.LocalidadeId);
 
             if (localidade == null)
                 return;
@@ -58,10 +54,7 @@ namespace DesafioBaltaIO.Application.Ibge.Events
             var cadastranteId = _user.GetUserId();
 
             if (!localidade.AssociarEditor(cadastranteId, notification.DataEdicao))
-            {
-                var command = new RemoverLocalidadeCommand(notification.CodigoLocalidade);
-                await _mediatorHandler.SendCommand(command);
-            }
+                return;
 
             _localidadeReository.AtualizarLocalidade(localidade);
 

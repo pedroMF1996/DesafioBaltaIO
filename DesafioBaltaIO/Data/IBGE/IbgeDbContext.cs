@@ -14,7 +14,6 @@ namespace DesafioBaltaIO.Data.IBGE
         public IbgeDbContext(DbContextOptions<IbgeDbContext> options, IMediatorHandler mediator) : base(options)
         {
             _mediator = mediator;
-            ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
         }
 
         public DbSet<LocalidadeModel> Localidades { get; set; }

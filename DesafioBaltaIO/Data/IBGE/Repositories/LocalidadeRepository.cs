@@ -13,7 +13,6 @@ namespace DesafioBaltaIO.Data.IBGE.Repositories
         public LocalidadeRepository(IbgeDbContext dbContext)
         {
             _dbContext = dbContext;
-            _dbContext.ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
         }
 
         public IUnitOfWork UnitOfWork => _dbContext;
@@ -38,6 +37,11 @@ namespace DesafioBaltaIO.Data.IBGE.Repositories
         public void RemoverLocalidade(LocalidadeModel localidade)
         {
             _dbContext.Localidades.Remove(localidade);
+        }
+
+        public LocalidadeModel ObterLocalidadeEmVigencia(Guid id)
+        {
+            return _dbContext.ChangeTracker.Entries<LocalidadeModel>().SingleOrDefault(e => e.Entity.Id == id).Entity;
         }
 
         public void Dispose()
