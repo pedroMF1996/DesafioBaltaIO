@@ -1,4 +1,5 @@
 using DesafioBaltaIO.Configurations;
+using DesafioBaltaIO.Controllers;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -33,6 +34,8 @@ app.MapGet("/weatherforecast", () =>
 })
 .WithName("GetWeatherForecast")
 .WithOpenApi();
+
+app.AddIbgeController();
 
 app.Run();
 
