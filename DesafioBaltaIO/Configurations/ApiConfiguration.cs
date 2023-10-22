@@ -24,6 +24,16 @@ namespace DesafioBaltaIO.Configurations
             services.AddEndpointsApiExplorer();
             services.AddSwaggerConfiguration();
 
+            services.AddCustomValidationClaim();
+
+            services.AddCors(opt =>
+            {
+                opt.AddPolicy("total", builder =>
+                    builder.AllowAnyHeader()
+                           .AllowAnyOrigin()
+                           .AllowAnyMethod());
+            });
+
             return services;
         }
 
@@ -31,6 +41,7 @@ namespace DesafioBaltaIO.Configurations
         {
             app.UseSwaggerConfiguration(environment);
             app.UseHttpsRedirection();
+            app.UseCors("total");
             app.UseAuthConfiguration();
 
             return app;

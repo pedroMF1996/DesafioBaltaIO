@@ -7,6 +7,7 @@ namespace DesafioBaltaIO.Domain.IBGE.Interfaces
     {
         Task CadastrarLocalidadeAsync(LocalidadeModel model);
         Task<LocalidadeModel> ObterLocalidadePorCodigoAsync(string codigo);
+        LocalidadeModel ObterLocalidadeEmVigencia(Guid id);
         void AtualizarLocalidade(LocalidadeModel localidade);
         void RemoverLocalidade(LocalidadeModel localidade);
     }

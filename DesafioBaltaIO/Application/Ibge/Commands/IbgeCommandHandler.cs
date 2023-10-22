@@ -28,7 +28,7 @@ namespace DesafioBaltaIO.Application.Ibge.Commands
 
             var localidadeExistente = await _localidadeReporitory.ObterLocalidadePorCodigoAsync(message.Codigo);
 
-            if (localidadeExistente.IsValid())
+            if (localidadeExistente is not null)
             {
                 AddError($"Ja existe uma localidade com o codigo: {message.Codigo}");
                 return ValidationResult;
@@ -44,7 +44,7 @@ namespace DesafioBaltaIO.Application.Ibge.Commands
 
             await _localidadeReporitory.CadastrarLocalidadeAsync(localidade);
 
-            localidade.AddDomainEvent(new LocalidadeCadastradaEvent(localidade.Codigo));
+            localidade.AddDomainEvent(new LocalidadeCadastradaEvent(localidade.Id, message.DataCadastro, localidade.Codigo));
 
             return await Commit(_localidadeReporitory.UnitOfWork);
         }
@@ -70,7 +70,7 @@ namespace DesafioBaltaIO.Application.Ibge.Commands
 
             _localidadeReporitory.AtualizarLocalidade(localidadeExistente);
 
-            localidadeExistente.AddDomainEvent(new LocalidadeEditadaEvent(message.Codigo, message.DataEdicao));
+            localidadeExistente.AddDomainEvent(new LocalidadeEditadaEvent(localidadeExistente.Id, message.DataEdicao, message.Codigo));
 
             return await Commit(_localidadeReporitory.UnitOfWork);
         }
@@ -96,7 +96,7 @@ namespace DesafioBaltaIO.Application.Ibge.Commands
 
             _localidadeReporitory.AtualizarLocalidade(localidadeExistente);
 
-            localidadeExistente.AddDomainEvent(new LocalidadeEditadaEvent(message.CodigoNovo, message.DataEdicao));
+            localidadeExistente.AddDomainEvent(new LocalidadeEditadaEvent(localidadeExistente.Id, message.DataEdicao, message.CodigoNovo));
 
             return await Commit(_localidadeReporitory.UnitOfWork);
         }
@@ -122,7 +122,7 @@ namespace DesafioBaltaIO.Application.Ibge.Commands
 
             _localidadeReporitory.AtualizarLocalidade(localidadeExistente);
 
-            localidadeExistente.AddDomainEvent(new LocalidadeEditadaEvent(message.Codigo, message.DataEdicao));
+            localidadeExistente.AddDomainEvent(new LocalidadeEditadaEvent(localidadeExistente.Id, message.DataEdicao, message.Codigo));
 
             return await Commit(_localidadeReporitory.UnitOfWork);
         }

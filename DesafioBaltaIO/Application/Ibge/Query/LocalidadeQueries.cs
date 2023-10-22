@@ -66,7 +66,7 @@ namespace DesafioBaltaIO.Application.Ibge.Query
                 {
                     Codigo = localidadeModel.Codigo,
                     Cidade = localidadeModel.Cidade,
-                    Estado = localidadeModel?.Estado
+                    Estado = localidadeModel.Estado
                 });
             });
 

@@ -46,6 +46,11 @@ namespace DesafioBaltaIO.Application.Autenticacao.Commands
 
             if (!result.Succeeded)
             {
+                result.Errors.ToList().ForEach(error =>
+                {
+                    AddError(error.Description);
+                });
+
                 AddError("Erro ao cadastrar o usuario");
                 return _response;
             }
@@ -103,12 +108,12 @@ namespace DesafioBaltaIO.Application.Autenticacao.Commands
 
         private List<Claim> SetIbgeClaims()
         {
-            List<Claim> claims = new();
-
-            claims.Add(new Claim("IBGE_Ler", "permitido"));
-            claims.Add(new Claim("IBGE_Cadastrar", "permitido"));
-            claims.Add(new Claim("IBGE_Atualizar", "permitido"));
-            claims.Add(new Claim("IBGE_Remover", "permitido"));
+            List<Claim> claims = new()
+            {
+                new Claim("IBGE_Cadastrar", "permitido"),
+                new Claim("IBGE_Atualizar", "permitido"),
+                new Claim("IBGE_Remover", "permitido")
+            };
 
             return claims;
         }

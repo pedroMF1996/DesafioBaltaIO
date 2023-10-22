@@ -33,9 +33,12 @@ namespace DesafioBaltaIO.Data.IBGE
             modelBuilder.Ignore<Event>();
 
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(IbgeDbContext).Assembly);
+
+            base.OnModelCreating(modelBuilder);
         }
     }
 
+    #region Mediator_Extensions
     public static class MediatorExtension
     {
         public static async Task PublicarEventos<T>(this IMediatorHandler mediatorHandler, T ctx) where T : DbContext
@@ -63,4 +66,5 @@ namespace DesafioBaltaIO.Data.IBGE
             await Task.WhenAll(task);
         }
     }
+    #endregion
 }

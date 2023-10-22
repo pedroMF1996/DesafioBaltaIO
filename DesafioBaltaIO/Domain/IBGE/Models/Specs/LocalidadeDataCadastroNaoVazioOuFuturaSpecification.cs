@@ -10,7 +10,7 @@ namespace DesafioBaltaIO.Domain.IBGE.Models.Specs
     {
         public override Expression<Func<LocalidadeModel, bool>> ToExpression()
         {
-            return localidade => localidade.DataCadastro > DateTime.MinValue && localidade.DataCadastro.Ticks <= DateTime.UtcNow.Ticks;
+            return localidade => localidade.DataCadastro > DateTime.MinValue && localidade.DataCadastro.Value.Ticks <= DateTime.UtcNow.Ticks;
         }
     }
     #endregion

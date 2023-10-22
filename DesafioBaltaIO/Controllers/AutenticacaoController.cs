@@ -1,6 +1,7 @@
 ﻿using DesafioBaltaIO.Application.Autenticacao.Commands;
 using DesafioBaltaIO.Application.Autenticacao.DTOs;
 using DesafioBaltaIO.Application.Autenticacao.mediatorHandler;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DesafioBaltaIO.Controllers
@@ -11,19 +12,19 @@ namespace DesafioBaltaIO.Controllers
         {
             #region Commands
 
-            app.MapPost("/registrar", async ([FromServices] IMediatorHandlerAutenticacao _mediatorHandler,
+            app.MapPost("/registrar", [AllowAnonymous] async ([FromServices] IMediatorHandlerAutenticacao _mediatorHandler,
                 [FromBody] RegistrarUsuarioCommand command) =>
                     CustomAutenticacaoResponse(await _mediatorHandler.SendCommand(command)))
-                .Produces<IResult>(StatusCodes.Status200OK)
-                .Produces<ValidationProblemDetails>(StatusCodes.Status500InternalServerError)
+                .Produces<LoginResponseDTO>(StatusCodes.Status200OK)
+                .Produces<ValidationProblemDetails>(StatusCodes.Status400BadRequest)
                 .WithName("PostRegistrar")
                 .WithTags("Autenticacao", "Command");
 
-            app.MapPost("/autenticar", async ([FromServices] IMediatorHandlerAutenticacao _mediatorHandler,
+            app.MapPost("/autenticar", [AllowAnonymous] async ([FromServices] IMediatorHandlerAutenticacao _mediatorHandler,
                 [FromBody] AutenticarUsuarioCommand command) =>
                     CustomAutenticacaoResponse(await _mediatorHandler.SendCommand(command)))
-                .Produces<IResult>(StatusCodes.Status200OK)
-                .Produces<ValidationProblemDetails>(StatusCodes.Status500InternalServerError)
+                .Produces<LoginResponseDTO>(StatusCodes.Status200OK)
+                .Produces<ValidationProblemDetails>(StatusCodes.Status400BadRequest)
                 .WithName("PostAutenticar")
                 .WithTags("Autenticacao", "Command");
 
@@ -57,7 +58,7 @@ namespace DesafioBaltaIO.Controllers
                     AdicionarErroProcessamento(error.ErrorMessage);
                 }
 
-            return CustomResponse(response);
+            return CustomResponse(response.AutenticacaoResponse);
         }
 
         private static bool OperacaoValida()

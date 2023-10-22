@@ -8,11 +8,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace DesafioBaltaIO.Migrations.IbgeDb
+namespace DesafioBaltaIO.Migrations
 {
     [DbContext(typeof(IbgeDbContext))]
-    [Migration("20231021233401_intialIBGE")]
-    partial class intialIBGE
+    [Migration("20231022175515_InitialIBGE")]
+    partial class InitialIBGE
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -26,7 +26,7 @@ namespace DesafioBaltaIO.Migrations.IbgeDb
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT");
 
-                    b.Property<Guid>("CadastradoPor")
+                    b.Property<Guid?>("CadastradoPor")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT")
                         .HasDefaultValue(new Guid("00000000-0000-0000-0000-000000000000"));
@@ -40,17 +40,17 @@ namespace DesafioBaltaIO.Migrations.IbgeDb
                         .HasMaxLength(7)
                         .HasColumnType("TEXT");
 
-                    b.Property<DateTime>("DataCadastro")
+                    b.Property<DateTime?>("DataCadastro")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER")
                         .HasDefaultValue(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified));
 
-                    b.Property<DateTime>("DataEdicao")
+                    b.Property<DateTime?>("DataEdicao")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER")
                         .HasDefaultValue(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified));
 
-                    b.Property<Guid>("EditadoPor")
+                    b.Property<Guid?>("EditadoPor")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT")
                         .HasDefaultValue(new Guid("00000000-0000-0000-0000-000000000000"));

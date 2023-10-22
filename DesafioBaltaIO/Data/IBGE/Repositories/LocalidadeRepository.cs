@@ -19,7 +19,9 @@ namespace DesafioBaltaIO.Data.IBGE.Repositories
 
         public void AtualizarLocalidade(LocalidadeModel localidade)
         {
+            _dbContext.Entry(localidade).State = EntityState.Detached;
             _dbContext.Localidades.Update(localidade);
+            _dbContext.Entry(localidade).State = EntityState.Modified;
         }
 
         public async Task CadastrarLocalidadeAsync(LocalidadeModel localidade)
@@ -35,6 +37,11 @@ namespace DesafioBaltaIO.Data.IBGE.Repositories
         public void RemoverLocalidade(LocalidadeModel localidade)
         {
             _dbContext.Localidades.Remove(localidade);
+        }
+
+        public LocalidadeModel ObterLocalidadeEmVigencia(Guid id)
+        {
+            return _dbContext.ChangeTracker.Entries<LocalidadeModel>().SingleOrDefault(e => e.Entity.Id == id).Entity;
         }
 
         public void Dispose()

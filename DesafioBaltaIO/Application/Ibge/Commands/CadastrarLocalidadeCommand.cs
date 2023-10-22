@@ -21,6 +21,7 @@ namespace DesafioBaltaIO.Application.Ibge.Commands
             Codigo = codigo;
             Estado = estado;
             Cidade = cidade;
+            DataCadastro = DateTime.Now;
         }
 
         public override bool IsValid()

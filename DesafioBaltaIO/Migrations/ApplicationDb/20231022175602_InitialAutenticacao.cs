@@ -1,11 +1,12 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace DesafioBaltaIO.Migrations
+namespace DesafioBaltaIO.Migrations.ApplicationDb
 {
     /// <inheritdoc />
-    public partial class intialIdentity : Migration
+    public partial class InitialAutenticacao : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

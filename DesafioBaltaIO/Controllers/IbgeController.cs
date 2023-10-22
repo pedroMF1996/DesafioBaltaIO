@@ -2,6 +2,7 @@
 using DesafioBaltaIO.Application.Ibge.DTOs;
 using DesafioBaltaIO.Application.Ibge.Query.Interface;
 using FluentValidation.Results;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using NetDevPack.Mediator;
 
@@ -13,43 +14,55 @@ namespace DesafioBaltaIO.Controllers
         {
             #region Commands
 
-            app.MapPost("ibge/localidade", async ([FromServices] IMediatorHandler _mediatorHandler,
+            app.MapPost("ibge/localidade", [Authorize] async ([FromServices] IMediatorHandler _mediatorHandler,
                 [FromBody] CadastrarLocalidadeCommand command) =>
                     CustomResponse(await _mediatorHandler.SendCommand(command)))
                 .Produces<IResult>(StatusCodes.Status200OK)
-                .Produces<ValidationProblemDetails>(StatusCodes.Status500InternalServerError)
+                .Produces<ValidationProblemDetails>(StatusCodes.Status400BadRequest)
                 .WithName("PostLocalidade")
                 .WithTags("IBGE", "Command");
 
-            app.MapPut("ibge/localidade/alterar/cidade", async ([FromServices] IMediatorHandler _mediatorHandler,
+            app.MapPut("ibge/localidade/alterar/cidade", [Authorize] async ([FromServices] IMediatorHandler _mediatorHandler,
                 [FromBody] AlterarCidadeLocalidadeCommand command) =>
                     CustomResponse(await _mediatorHandler.SendCommand(command)))
                 .Produces<IResult>(StatusCodes.Status200OK)
-                .Produces<ValidationProblemDetails>(StatusCodes.Status500InternalServerError)
+                .Produces<ValidationProblemDetails>(StatusCodes.Status400BadRequest)
+                .RequireAuthorization("IBGE_Atualizar")
                 .WithName("PutAlterarCidade")
                 .WithTags("IBGE", "Command");
 
-            app.MapPut("ibge/localidade/alterar/estado", async ([FromServices] IMediatorHandler _mediatorHandler,
+            app.MapPut("ibge/localidade/alterar/estado", [Authorize] async ([FromServices] IMediatorHandler _mediatorHandler,
                 [FromBody] AlterarEstadoLocalidadeCommand command) =>
                     CustomResponse(await _mediatorHandler.SendCommand(command)))
                 .Produces<IResult>(StatusCodes.Status200OK)
-                .Produces<ValidationProblemDetails>(StatusCodes.Status500InternalServerError)
+                .Produces<ValidationProblemDetails>(StatusCodes.Status400BadRequest)
+                .RequireAuthorization("IBGE_Atualizar")
                 .WithName("PutAlterarEstado")
                 .WithTags("IBGE", "Command");
 
-            app.MapPut("ibge/localidade/alterar/codigo", async ([FromServices] IMediatorHandler _mediatorHandler,
+            app.MapPut("ibge/localidade/alterar/codigo", [Authorize] async ([FromServices] IMediatorHandler _mediatorHandler,
                 [FromBody] AlterarCodigoLocalidadeCommand command) =>
                     CustomResponse(await _mediatorHandler.SendCommand(command)))
                 .Produces<IResult>(StatusCodes.Status200OK)
-                .Produces<ValidationProblemDetails>(StatusCodes.Status500InternalServerError)
+                .Produces<ValidationProblemDetails>(StatusCodes.Status400BadRequest)
+                .RequireAuthorization("IBGE_Atualizar")
                 .WithName("PutAlterarCodigo")
+                .WithTags("IBGE", "Command");
+
+            app.MapDelete("ibge/localidade", [Authorize] async ([FromServices] IMediatorHandler _mediatorHandler,
+                [FromBody] RemoverLocalidadeCommand command) =>
+                    CustomResponse(await _mediatorHandler.SendCommand(command)))
+                .Produces<IResult>(StatusCodes.Status200OK)
+                .Produces<ValidationProblemDetails>(StatusCodes.Status400BadRequest)
+                .RequireAuthorization("IBGE_Remover")
+                .WithName("DeleteLocalidade")
                 .WithTags("IBGE", "Command");
 
             #endregion
 
             #region Queries
 
-            app.MapGet("ibge/localidade/{codigo}", async (string codigo,
+            app.MapGet("ibge/localidade/obter-por-codigo/{codigo}", [AllowAnonymous] async ([FromQuery] string codigo,
                 [FromServices] ILocalidadeQueries localidadeQueries) =>
                     CustomQueryResponse(await localidadeQueries.ObterLocalizacaoPorCodigo(codigo)))
                 .Produces<LocalidadeDTO>(StatusCodes.Status200OK)
@@ -57,7 +70,7 @@ namespace DesafioBaltaIO.Controllers
                 .WithName("GetLocalidadePorCodigo")
                 .WithTags("IBGE", "Query");
 
-            app.MapGet("ibge/localidade/{cidade}", async (string cidade,
+            app.MapGet("ibge/localidade/obter-por-cidade/{cidade}", [AllowAnonymous] async ([FromQuery] string cidade,
                 [FromServices] ILocalidadeQueries localidadeQueries) =>
                     CustomQueryResponse(await localidadeQueries.ObterLocalizacaoPorCidade(cidade)))
                 .Produces<LocalidadeDTO>(StatusCodes.Status200OK)
@@ -65,7 +78,7 @@ namespace DesafioBaltaIO.Controllers
                 .WithName("GetLocalidadePorCidade")
                 .WithTags("IBGE", "Query");
 
-            app.MapGet("ibge/localidade/{estado}", async (string estado,
+            app.MapGet("ibge/localidade/obter-por-estado/{estado}", [AllowAnonymous] async ([FromQuery] string estado,
                 [FromServices] ILocalidadeQueries localidadeQueries) =>
                     CustomQueryResponse(await localidadeQueries.ObterLocalizacoesPorEstado(estado)))
                 .Produces<IEnumerable<LocalidadeDTO>>(StatusCodes.Status200OK)

@@ -8,10 +8,10 @@ namespace DesafioBaltaIO.Domain.IBGE.Models
         public string Codigo { get; private set; }
         public string Estado { get; private set; }
         public string Cidade { get; private set; }
-        public Guid CadastradoPor { get; private set; }
-        public DateTime DataCadastro { get; private set; }
-        public Guid EditadoPor { get; private set; }
-        public DateTime DataEdicao { get; private set; }
+        public Guid? CadastradoPor { get; private set; }
+        public DateTime? DataCadastro { get; private set; }
+        public Guid? EditadoPor { get; private set; }
+        public DateTime? DataEdicao { get; private set; }
 
         protected LocalidadeModel()
         { }
