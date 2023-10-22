@@ -13,83 +13,67 @@ namespace DesafioBaltaIO.Controllers
         {
             #region Commands
 
-            app.MapPost("/localidade", async (IMediatorHandler _mediatorHandler,
-                CadastrarLocalidadeCommand command) =>
+            app.MapPost("ibge/localidade", async ([FromServices] IMediatorHandler _mediatorHandler,
+                [FromBody] CadastrarLocalidadeCommand command) =>
                     CustomResponse(await _mediatorHandler.SendCommand(command)))
-                .Produces<ValidationResult>(StatusCodes.Status200OK)
-                .Produces<ValidationResult>(StatusCodes.Status500InternalServerError)
+                .Produces<IResult>(StatusCodes.Status200OK)
+                .Produces<ValidationProblemDetails>(StatusCodes.Status500InternalServerError)
                 .WithName("PostLocalidade")
-                .WithTags("IBGE");
+                .WithTags("IBGE", "Command");
 
-            app.MapPut("/localidade/alterar/cidade", async (IMediatorHandler _mediatorHandler,
-                AlterarCidadeLocalidadeCommand command) =>
+            app.MapPut("ibge/localidade/alterar/cidade", async ([FromServices] IMediatorHandler _mediatorHandler,
+                [FromBody] AlterarCidadeLocalidadeCommand command) =>
                     CustomResponse(await _mediatorHandler.SendCommand(command)))
-                .Produces<ValidationResult>(StatusCodes.Status200OK)
-                .Produces<ValidationResult>(StatusCodes.Status500InternalServerError)
+                .Produces<IResult>(StatusCodes.Status200OK)
+                .Produces<ValidationProblemDetails>(StatusCodes.Status500InternalServerError)
                 .WithName("PutAlterarCidade")
-                .WithTags("IBGE");
+                .WithTags("IBGE", "Command");
 
-            app.MapPut("/localidade/alterar/estado", async (IMediatorHandler _mediatorHandler,
-                AlterarEstadoLocalidadeCommand command) =>
+            app.MapPut("ibge/localidade/alterar/estado", async ([FromServices] IMediatorHandler _mediatorHandler,
+                [FromBody] AlterarEstadoLocalidadeCommand command) =>
                     CustomResponse(await _mediatorHandler.SendCommand(command)))
-                .Produces<ValidationResult>(StatusCodes.Status200OK)
-                .Produces<ValidationResult>(StatusCodes.Status500InternalServerError)
+                .Produces<IResult>(StatusCodes.Status200OK)
+                .Produces<ValidationProblemDetails>(StatusCodes.Status500InternalServerError)
                 .WithName("PutAlterarEstado")
-                .WithTags("IBGE");
+                .WithTags("IBGE", "Command");
 
-            app.MapPut("/localidade/alterar/codigo", async (IMediatorHandler _mediatorHandler,
-                AlterarCodigoLocalidadeCommand command) =>
+            app.MapPut("ibge/localidade/alterar/codigo", async ([FromServices] IMediatorHandler _mediatorHandler,
+                [FromBody] AlterarCodigoLocalidadeCommand command) =>
                     CustomResponse(await _mediatorHandler.SendCommand(command)))
-                .Produces(StatusCodes.Status200OK)
-                .Produces(StatusCodes.Status500InternalServerError)
+                .Produces<IResult>(StatusCodes.Status200OK)
+                .Produces<ValidationProblemDetails>(StatusCodes.Status500InternalServerError)
                 .WithName("PutAlterarCodigo")
-                .WithTags("IBGE");
+                .WithTags("IBGE", "Command");
 
             #endregion
 
             #region Queries
 
-            app.MapGet("/localidade/{codigo}", (string codigo,
-                ILocalidadeQueries localidadeQueries) =>
-            {
-                var localidade = localidadeQueries.ObterLocalizacaoPorCodigo(codigo);
-                return localidade != null ?
-                            Results.Ok(localidade) :
-                            Results.NotFound();
-            })
+            app.MapGet("ibge/localidade/{codigo}", async (string codigo,
+                [FromServices] ILocalidadeQueries localidadeQueries) =>
+                    CustomQueryResponse(await localidadeQueries.ObterLocalizacaoPorCodigo(codigo)))
                 .Produces<LocalidadeDTO>(StatusCodes.Status200OK)
                 .Produces(StatusCodes.Status404NotFound)
                 .WithName("GetLocalidadePorCodigo")
-                .WithTags("IBGE");
+                .WithTags("IBGE", "Query");
 
-            app.MapGet("/localidade/{cidade}", async (string cidade,
-                ILocalidadeQueries localidadeQueries) =>
-            {
-                var localidade = await localidadeQueries.ObterLocalizacaoPorCidade(cidade);
-                return localidade != null ?
-                            Results.Ok(localidade) :
-                            Results.NotFound();
-            })
+            app.MapGet("ibge/localidade/{cidade}", async (string cidade,
+                [FromServices] ILocalidadeQueries localidadeQueries) =>
+                    CustomQueryResponse(await localidadeQueries.ObterLocalizacaoPorCidade(cidade)))
                 .Produces<LocalidadeDTO>(StatusCodes.Status200OK)
                 .Produces(StatusCodes.Status404NotFound)
                 .WithName("GetLocalidadePorCidade")
-                .WithTags("IBGE");
+                .WithTags("IBGE", "Query");
 
-            app.MapGet("/localidade/{estado}", async (string estado,
-                ILocalidadeQueries localidadeQueries) =>
-            {
-                var localidades = await localidadeQueries.ObterLocalizacoesPorEstado(estado);
-                return localidades != null ?
-                            Results.Ok(localidades) :
-                            Results.NotFound();
-            })
+            app.MapGet("ibge/localidade/{estado}", async (string estado,
+                [FromServices] ILocalidadeQueries localidadeQueries) =>
+                    CustomQueryResponse(await localidadeQueries.ObterLocalizacoesPorEstado(estado)))
                 .Produces<IEnumerable<LocalidadeDTO>>(StatusCodes.Status200OK)
                 .Produces(StatusCodes.Status404NotFound)
                 .WithName("GetLocalidadesPorEstado")
-                .WithTags("IBGE");
+                .WithTags("IBGE", "Query");
 
             #endregion
-
 
             return app;
         }
@@ -99,7 +83,21 @@ namespace DesafioBaltaIO.Controllers
 
         private static readonly ICollection<string> Errors = new List<string>();
 
-        private static IResult CustomResponse(object? result = null)
+        private static IResult CustomQueryResponse(object localidade)
+        {
+            return localidade != null ?
+                        Results.Ok(localidade) :
+                        Results.NotFound();
+        }
+        
+        private static IResult CustomQueryResponse(List<object> localidades)
+        {
+            return localidades != null ?
+                        Results.Ok(localidades) :
+                        Results.NotFound();
+        }
+
+        private static IResult CustomResponse(object result = null)
         {
             if (OperacaoValida())
             {
