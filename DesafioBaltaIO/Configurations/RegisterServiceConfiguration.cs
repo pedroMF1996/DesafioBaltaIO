@@ -1,4 +1,5 @@
-﻿using DesafioBaltaIO.Application.Ibge.Commands;
+﻿using DesafioBaltaIO.Application.Autenticacao.mediatorHandler;
+using DesafioBaltaIO.Application.Ibge.Commands;
 using DesafioBaltaIO.Application.Ibge.Events;
 using DesafioBaltaIO.Data.Atenticacao;
 using DesafioBaltaIO.Data.IBGE;
@@ -18,6 +19,7 @@ namespace DesafioBaltaIO.Configurations
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddScoped<IAspNetUser, AspNetUser>();
             services.AddScoped<IMediatorHandler, MediatorHandler>();
+            services.AddScoped<IMediatorHandlerAutenticacao, MediatorHandlerAutenticacao>();
 
             services.AddScoped<INotificationHandler<LocalidadeCadastradaEvent>, IbgeEventHandler>();
             services.AddScoped<INotificationHandler<LocalidadeEditadaEvent>, IbgeEventHandler>();

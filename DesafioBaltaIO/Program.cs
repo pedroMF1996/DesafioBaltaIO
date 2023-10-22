@@ -21,6 +21,7 @@ var summaries = new[]
 };
 
 app.AddIbgeController();
+app.AddAutenticacaoController();
 
 app.Run();
 
