@@ -79,7 +79,7 @@ namespace DesafioBaltaIO.Controllers
         }
 
 
-        #region Private_Methods
+        #region Metodos_Privados
 
         private static readonly ICollection<string> Errors = new List<string>();
 
