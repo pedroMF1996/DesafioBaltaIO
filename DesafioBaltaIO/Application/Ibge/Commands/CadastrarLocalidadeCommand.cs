@@ -14,7 +14,7 @@ namespace DesafioBaltaIO.Application.Ibge.Commands
         public DateTime DataCadastro { get; set; }
 
         protected CadastrarLocalidadeCommand()
-        {}
+        { }
 
         public CadastrarLocalidadeCommand(string codigo, string estado, string cidade)
         {

@@ -13,7 +13,7 @@ namespace DesafioBaltaIO.Application.Autenticacao.Commands
         public string ConfirmarSenha { get; set; }
 
         protected RegistrarUsuarioCommand()
-        {}
+        { }
 
         public RegistrarUsuarioCommand(string nome, string cpf, string email, string senha, string confirmarSenha)
         {

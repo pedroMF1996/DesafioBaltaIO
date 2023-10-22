@@ -21,7 +21,7 @@ namespace DesafioBaltaIO.Application.Ibge.Query
 
             if (localidadeModel == null)
                 return null;
-            
+
 
             LocalidadeDTO localidadeDTO = new()
             {
@@ -62,11 +62,12 @@ namespace DesafioBaltaIO.Application.Ibge.Query
 
             localidades.ForEach(localidadeModel =>
             {
-                localidadeDTOs.Add(new(){
-                                            Codigo = localidadeModel.Codigo,
-                                            Cidade = localidadeModel.Cidade,
-                                            Estado = localidadeModel?.Estado
-                                        });
+                localidadeDTOs.Add(new()
+                {
+                    Codigo = localidadeModel.Codigo,
+                    Cidade = localidadeModel.Cidade,
+                    Estado = localidadeModel?.Estado
+                });
             });
 
             return localidadeDTOs;

@@ -12,7 +12,7 @@ namespace DesafioBaltaIO.Application.Ibge.Commands
         [JsonIgnore]
         public DateTime DataEdicao { get; set; }
         protected AlterarCidadeLocalidadeCommand()
-        {}
+        { }
 
         public AlterarCidadeLocalidadeCommand(string codigo, string cidade)
         {

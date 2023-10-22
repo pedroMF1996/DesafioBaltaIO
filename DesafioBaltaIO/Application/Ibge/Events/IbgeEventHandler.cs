@@ -20,7 +20,7 @@ namespace DesafioBaltaIO.Application.Ibge.Events
         {
             var localidade = await _localidadeReository.ObterLocalidadePorCodigoAsync(notification.CodigoLocalidade);
 
-            if(localidade == null)
+            if (localidade == null)
                 return;
 
             var cadastranteId = _user.GetUserId();

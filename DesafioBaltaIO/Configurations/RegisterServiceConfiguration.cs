@@ -33,7 +33,7 @@ namespace DesafioBaltaIO.Configurations
             services.AddScoped<IbgeDbContext>();
             services.AddScoped<ApplicationDbContext>();
             services.AddScoped<ILocalidadeReository, LocalidadeRepository>();
-            
+
             return services;
         }
     }
