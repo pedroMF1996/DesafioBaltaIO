@@ -20,7 +20,7 @@ namespace DesafioBaltaIO.Application.Ibge.Query
             var localidadeModel = await _context.Localidades.AsNoTracking().FirstOrDefaultAsync(x => x.Cidade == cidade);
 
             if (localidadeModel == null)
-                return new();
+                return null;
             
 
             LocalidadeDTO localidadeDTO = new()
@@ -38,7 +38,7 @@ namespace DesafioBaltaIO.Application.Ibge.Query
             var localidadeModel = await _context.Localidades.AsNoTracking().FirstOrDefaultAsync(x => x.Codigo == codigo);
 
             if (localidadeModel == null)
-                return new();
+                return null;
 
 
             LocalidadeDTO localidadeDTO = new()
@@ -58,7 +58,7 @@ namespace DesafioBaltaIO.Application.Ibge.Query
                                                         .Where(x => x.Estado == estado)
                                                         .ToListAsync();
             if (localidades.Count == 0)
-                return localidadeDTOs;
+                return null;
 
             localidades.ForEach(localidadeModel =>
             {
