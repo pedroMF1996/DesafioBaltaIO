@@ -13,7 +13,7 @@ namespace DesafioBaltaIO.Application.Ibge.Commands
         public DateTime DataEdicao { get; set; }
 
         protected AlterarCodigoLocalidadeCommand()
-        {}
+        { }
 
         public AlterarCodigoLocalidadeCommand(string codigoAtual, string codigoNovo)
         {

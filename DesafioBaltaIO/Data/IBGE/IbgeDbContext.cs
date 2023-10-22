@@ -24,7 +24,7 @@ namespace DesafioBaltaIO.Data.IBGE
 
             if (sucesso)
                 await _mediator.PublicarEventos(this);
-            
+
             return sucesso;
         }
 

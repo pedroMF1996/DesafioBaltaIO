@@ -3,7 +3,7 @@ using System.Linq.Expressions;
 
 namespace DesafioBaltaIO.Domain.IBGE.Models.Specs
 {
-    
+
     #region CodigoSpecifications
 
     public class LocalidadeCodigoEhNumeroSpecification : Specification<LocalidadeModel>

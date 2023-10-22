@@ -36,7 +36,7 @@ namespace DesafioBaltaIO.Application.Ibge.Commands
 
             var localidade = new LocalidadeModel(message.Codigo, message.Estado, message.Cidade);
 
-            if(!localidade.IsValid())
+            if (!localidade.IsValid())
             {
                 AddError("Erro de processamento");
                 return ValidationResult;
@@ -62,7 +62,7 @@ namespace DesafioBaltaIO.Application.Ibge.Commands
                 return ValidationResult;
             }
 
-            if (!localidadeExistente.AlterarCidade(message.Cidade)) 
+            if (!localidadeExistente.AlterarCidade(message.Cidade))
             {
                 AddError("Erro ao alterar cidade da localidade");
                 return ValidationResult;

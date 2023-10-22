@@ -18,8 +18,8 @@ namespace DesafioBaltaIO.Application.Autenticacao.Commands
         private readonly UserManager<IdentityUser> _userManager;
         private readonly AppSettings _appSettings;
 
-        public AutenticacaoCommandHandler(SignInManager<IdentityUser> signInManager, 
-                                          UserManager<IdentityUser> userManager, 
+        public AutenticacaoCommandHandler(SignInManager<IdentityUser> signInManager,
+                                          UserManager<IdentityUser> userManager,
                                           IOptions<AppSettings> appSettings)
         {
             _signInManager = signInManager;
@@ -65,7 +65,7 @@ namespace DesafioBaltaIO.Application.Autenticacao.Commands
             }
 
             var result = await _signInManager.PasswordSignInAsync(message.Email, message.Senha, false, true);
-            
+
             if (result.IsLockedOut)
             {
                 AddError("Usuario temporariamente bloqueado por tentativas invalidas");
@@ -104,7 +104,7 @@ namespace DesafioBaltaIO.Application.Autenticacao.Commands
         private List<Claim> SetIbgeClaims()
         {
             List<Claim> claims = new();
-            
+
             claims.Add(new Claim("IBGE_Ler", "permitido"));
             claims.Add(new Claim("IBGE_Cadastrar", "permitido"));
             claims.Add(new Claim("IBGE_Atualizar", "permitido"));
@@ -162,7 +162,7 @@ namespace DesafioBaltaIO.Application.Autenticacao.Commands
                     Claims = claims.Select(c => new ClaimDTO() { Type = c.Type, Value = c.Value })
                 }
             };
-        } 
+        }
         #endregion
     }
 }

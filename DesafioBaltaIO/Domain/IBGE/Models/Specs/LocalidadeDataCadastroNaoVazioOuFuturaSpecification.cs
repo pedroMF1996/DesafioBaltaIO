@@ -3,7 +3,7 @@ using System.Linq.Expressions;
 
 namespace DesafioBaltaIO.Domain.IBGE.Models.Specs
 {
-    
+
 
     #region DataCadastro
     public class LocalidadeDataCadastroNaoVazioOuFuturaSpecification : Specification<LocalidadeModel>

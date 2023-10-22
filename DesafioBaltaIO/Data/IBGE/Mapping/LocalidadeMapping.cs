@@ -9,14 +9,14 @@ namespace DesafioBaltaIO.Data.IBGE.Mapping
         public void Configure(EntityTypeBuilder<LocalidadeModel> builder)
         {
             builder.HasKey(x => x.Id);
-            
+
             builder.Property(x => x.Codigo)
                 .IsRequired()
                 .HasColumnType("TEXT")
                 .HasMaxLength(7);
 
-            builder.Property(x => x.Estado) 
-                .IsRequired() 
+            builder.Property(x => x.Estado)
+                .IsRequired()
                 .HasColumnType("TEXT")
                 .HasMaxLength(2);
 
@@ -28,7 +28,7 @@ namespace DesafioBaltaIO.Data.IBGE.Mapping
                 .IsRequired()
                 .HasColumnType("TEXT")
                 .HasDefaultValue(Guid.Empty);
-            
+
             builder.Property(x => x.EditadoPor)
                 .IsRequired()
                 .HasColumnType("TEXT")
@@ -38,7 +38,7 @@ namespace DesafioBaltaIO.Data.IBGE.Mapping
                 .IsRequired()
                 .HasColumnType("INTEGER")
                 .HasDefaultValue(DateTime.MinValue);
-            
+
             builder.Property(x => x.DataEdicao)
                 .IsRequired()
                 .HasColumnType("INTEGER")

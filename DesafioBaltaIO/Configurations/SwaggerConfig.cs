@@ -4,16 +4,17 @@
     {
         public static IServiceCollection AddSwaggerConfiguration(this IServiceCollection services)
         {
-            services.AddSwaggerGen(c => {
-                    c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo()
-                    {
-                        Title = "Desafio Balta.IO API",
-                        Description = "Essa API faz parte de um desafio proposto pelo Andre Baltieri no dia 10/10/2023",
-                        Contact = new Microsoft.OpenApi.Models.OpenApiContact() { Name = "Pedro Falleiros", Email = "pmfrp@hotmail.com" },
-                        License = new Microsoft.OpenApi.Models.OpenApiLicense() { Name = "MIT", Url = new Uri("https://opensource.org/licenses/MIT") }
-                    });
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo()
+                {
+                    Title = "Desafio Balta.IO API",
+                    Description = "Essa API faz parte de um desafio proposto pelo Andre Baltieri no dia 10/10/2023",
+                    Contact = new Microsoft.OpenApi.Models.OpenApiContact() { Name = "Pedro Falleiros", Email = "pmfrp@hotmail.com" },
+                    License = new Microsoft.OpenApi.Models.OpenApiLicense() { Name = "MIT", Url = new Uri("https://opensource.org/licenses/MIT") }
+                });
 
-                    c.AddSwaggerJwtAuthorizationConfiguration();    
+                c.AddSwaggerJwtAuthorizationConfiguration();
             });
 
             return services;

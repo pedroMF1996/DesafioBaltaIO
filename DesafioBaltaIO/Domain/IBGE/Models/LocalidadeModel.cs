@@ -56,7 +56,7 @@ namespace DesafioBaltaIO.Domain.IBGE.Models
                         .And(new LocalidadeDataCadastroNaoVazioOuFuturaSpecification())
                         .IsSatisfiedBy(this);
         }
-        
+
         public bool AssociarEditor(Guid editadoPor, DateTime dataEdicao)
         {
             EditadoPor = editadoPor;

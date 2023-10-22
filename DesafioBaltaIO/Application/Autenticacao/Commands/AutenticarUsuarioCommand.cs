@@ -10,7 +10,7 @@ namespace DesafioBaltaIO.Application.Autenticacao.Commands
         public string Senha { get; set; }
 
         protected AutenticarUsuarioCommand()
-        {}
+        { }
 
         public AutenticarUsuarioCommand(string email, string senha)
         {

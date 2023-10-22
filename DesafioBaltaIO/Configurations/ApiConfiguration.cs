@@ -13,10 +13,10 @@ namespace DesafioBaltaIO.Configurations
 
             services.AddDbContext<IbgeDbContext>(opt =>
                 opt.UseSqlite(configuration.GetConnectionString("DesafioBaltaIOSqliteConnection")));
-            
+
             services.AddIdentityConfiguration(configuration, environment);
 
-            services.AddMediatR(cfg => 
+            services.AddMediatR(cfg =>
                 cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
 
             // Add services to the container.
@@ -26,7 +26,7 @@ namespace DesafioBaltaIO.Configurations
 
             return services;
         }
-        
+
         public static IApplicationBuilder UseApiConfiguration(this IApplicationBuilder app, IWebHostEnvironment environment)
         {
             app.UseSwaggerConfiguration(environment);

@@ -79,7 +79,7 @@ namespace DesafioBaltaIO.Controllers
         }
 
 
-        #region Private_Methods
+        #region Metodos_Privados
 
         private static readonly ICollection<string> Errors = new List<string>();
 
@@ -89,7 +89,7 @@ namespace DesafioBaltaIO.Controllers
                         Results.Ok(localidade) :
                         Results.NotFound();
         }
-        
+
         private static IResult CustomQueryResponse(List<object> localidades)
         {
             return localidades != null ?
@@ -128,8 +128,8 @@ namespace DesafioBaltaIO.Controllers
         private static void AdicionarErroProcessamento(string erro)
         {
             Errors.Add(erro);
-        } 
-        
+        }
+
         #endregion
     }
 }
