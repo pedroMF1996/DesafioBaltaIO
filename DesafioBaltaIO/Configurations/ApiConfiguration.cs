@@ -39,7 +39,7 @@ namespace DesafioBaltaIO.Configurations
 
         public static IApplicationBuilder UseApiConfiguration(this IApplicationBuilder app, IWebHostEnvironment environment)
         {
-            app.UseSwaggerConfiguration(environment);
+            app.UseSwaggerConfiguration();
             app.UseHttpsRedirection();
             app.UseCors("total");
             app.UseAuthConfiguration();

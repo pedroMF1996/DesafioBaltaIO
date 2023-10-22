@@ -20,10 +20,8 @@
             return services;
         }
 
-        public static IApplicationBuilder UseSwaggerConfiguration(this IApplicationBuilder app, IWebHostEnvironment environment)
+        public static IApplicationBuilder UseSwaggerConfiguration(this IApplicationBuilder app)
         {
-            // Configure the HTTP request pipeline.
-        
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {
