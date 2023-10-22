@@ -65,6 +65,6 @@ namespace DesafioBaltaIO.Data.IBGE
 
             await Task.WhenAll(task);
         }
-    } 
+    }
     #endregion
 }

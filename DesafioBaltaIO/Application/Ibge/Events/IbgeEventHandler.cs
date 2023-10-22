@@ -33,7 +33,7 @@ namespace DesafioBaltaIO.Application.Ibge.Events
 
                 if (!localidade.AssociarCadastrante(cadastranteId, notification.DataCadastro))
                     throw new ArgumentException("Erro ao cadastrar a localidade");
-                                
+
                 _localidadeReository.AtualizarLocalidade(localidade);
 
                 await _localidadeReository.UnitOfWork.Commit();
@@ -66,6 +66,6 @@ namespace DesafioBaltaIO.Application.Ibge.Events
             var command = new RemoverLocalidadeCommand(codigoLocalidade);
             await _mediatorHandler.SendCommand(command);
             throw new ArgumentException(mensagemErro);
-        }        
+        }
     }
 }

@@ -48,7 +48,7 @@ namespace DesafioBaltaIO.Controllers
                 .RequireAuthorization("IBGE_Atualizar")
                 .WithName("PutAlterarCodigo")
                 .WithTags("IBGE", "Command");
-            
+
             app.MapDelete("ibge/localidade", [Authorize] async ([FromServices] IMediatorHandler _mediatorHandler,
                 [FromBody] RemoverLocalidadeCommand command) =>
                     CustomResponse(await _mediatorHandler.SendCommand(command)))

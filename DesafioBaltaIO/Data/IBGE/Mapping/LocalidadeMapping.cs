@@ -25,22 +25,18 @@ namespace DesafioBaltaIO.Data.IBGE.Mapping
                 .HasColumnType("TEXT");
 
             builder.Property(x => x.CadastradoPor)
-                .IsRequired()
                 .HasColumnType("TEXT")
                 .HasDefaultValue(Guid.Empty);
 
             builder.Property(x => x.EditadoPor)
-                .IsRequired()
                 .HasColumnType("TEXT")
                 .HasDefaultValue(Guid.Empty);
 
             builder.Property(x => x.DataCadastro)
-                .IsRequired()
                 .HasColumnType("INTEGER")
                 .HasDefaultValue(DateTime.MinValue);
 
             builder.Property(x => x.DataEdicao)
-                .IsRequired()
                 .HasColumnType("INTEGER")
                 .HasDefaultValue(DateTime.MinValue);
 

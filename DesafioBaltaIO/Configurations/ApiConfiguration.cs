@@ -1,5 +1,4 @@
 ﻿using DesafioBaltaIO.Data.IBGE;
-using Microsoft.AspNetCore.Cors.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 
@@ -29,7 +28,7 @@ namespace DesafioBaltaIO.Configurations
 
             services.AddCors(opt =>
             {
-                opt.AddPolicy("total",builder => 
+                opt.AddPolicy("total", builder =>
                     builder.AllowAnyHeader()
                            .AllowAnyOrigin()
                            .AllowAnyMethod());
