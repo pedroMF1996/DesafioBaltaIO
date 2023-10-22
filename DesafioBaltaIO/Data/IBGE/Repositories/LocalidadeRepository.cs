@@ -13,13 +13,16 @@ namespace DesafioBaltaIO.Data.IBGE.Repositories
         public LocalidadeRepository(IbgeDbContext dbContext)
         {
             _dbContext = dbContext;
+            _dbContext.ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
         }
 
         public IUnitOfWork UnitOfWork => _dbContext;
 
         public void AtualizarLocalidade(LocalidadeModel localidade)
         {
+            _dbContext.Entry(localidade).State = EntityState.Detached;
             _dbContext.Localidades.Update(localidade);
+            _dbContext.Entry(localidade).State = EntityState.Modified;
         }
 
         public async Task CadastrarLocalidadeAsync(LocalidadeModel localidade)

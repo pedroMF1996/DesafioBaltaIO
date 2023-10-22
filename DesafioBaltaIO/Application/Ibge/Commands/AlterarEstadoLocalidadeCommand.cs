@@ -19,6 +19,7 @@ namespace DesafioBaltaIO.Application.Ibge.Commands
         {
             Codigo = codigo;
             Estado = estado;
+            DataEdicao = DateTime.Now;
         }
 
         public override bool IsValid()

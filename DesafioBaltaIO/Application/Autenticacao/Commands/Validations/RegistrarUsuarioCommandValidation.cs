@@ -6,16 +6,6 @@ namespace DesafioBaltaIO.Application.Autenticacao.Commands.Validations
     {
         public RegistrarUsuarioCommandValidation()
         {
-            RuleFor(x => x.Nome)
-                .NotEmpty()
-                .NotNull()
-                .WithMessage("O campo Nome é obrigatório");
-
-            RuleFor(x => x.Cpf)
-                .NotEmpty()
-                .NotNull()
-                .WithMessage("O campo Cpf é obrigatório");
-
             RuleFor(x => x.Email)
                 .NotEmpty()
                 .NotNull()

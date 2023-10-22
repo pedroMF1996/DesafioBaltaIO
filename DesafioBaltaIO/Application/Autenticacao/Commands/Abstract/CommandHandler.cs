@@ -27,7 +27,7 @@ namespace DesafioBaltaIO.Application.Autenticacao.Commands.Abstract
 
         protected bool HasErrors()
         {
-            return ValidationResult.IsValid;
+            return !ValidationResult.IsValid;
         }
 
         protected void UpdateValidationResult(ValidationResult validationResult)

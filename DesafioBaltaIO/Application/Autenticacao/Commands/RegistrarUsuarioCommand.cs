@@ -6,8 +6,6 @@ namespace DesafioBaltaIO.Application.Autenticacao.Commands
 {
     public class RegistrarUsuarioCommand : Command
     {
-        public string Nome { get; set; }
-        public string Cpf { get; set; }
         public string Email { get; set; }
         public string Senha { get; set; }
         public string ConfirmarSenha { get; set; }
@@ -15,10 +13,8 @@ namespace DesafioBaltaIO.Application.Autenticacao.Commands
         protected RegistrarUsuarioCommand()
         { }
 
-        public RegistrarUsuarioCommand(string nome, string cpf, string email, string senha, string confirmarSenha)
+        public RegistrarUsuarioCommand(string email, string senha, string confirmarSenha)
         {
-            Nome = nome;
-            Cpf = cpf;
             Email = email;
             Senha = senha;
             ConfirmarSenha = confirmarSenha;

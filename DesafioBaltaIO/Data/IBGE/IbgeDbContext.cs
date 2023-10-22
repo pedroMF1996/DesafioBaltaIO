@@ -14,6 +14,7 @@ namespace DesafioBaltaIO.Data.IBGE
         public IbgeDbContext(DbContextOptions<IbgeDbContext> options, IMediatorHandler mediator) : base(options)
         {
             _mediator = mediator;
+            ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
         }
 
         public DbSet<LocalidadeModel> Localidades { get; set; }
@@ -33,9 +34,12 @@ namespace DesafioBaltaIO.Data.IBGE
             modelBuilder.Ignore<Event>();
 
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(IbgeDbContext).Assembly);
+
+            base.OnModelCreating(modelBuilder);
         }
     }
 
+    #region Mediator_Extensions
     public static class MediatorExtension
     {
         public static async Task PublicarEventos<T>(this IMediatorHandler mediatorHandler, T ctx) where T : DbContext
@@ -62,5 +66,6 @@ namespace DesafioBaltaIO.Data.IBGE
 
             await Task.WhenAll(task);
         }
-    }
+    } 
+    #endregion
 }

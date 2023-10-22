@@ -28,7 +28,7 @@ namespace DesafioBaltaIO.Application.Ibge.Commands
 
             var localidadeExistente = await _localidadeReporitory.ObterLocalidadePorCodigoAsync(message.Codigo);
 
-            if (localidadeExistente.IsValid())
+            if (localidadeExistente is not null)
             {
                 AddError($"Ja existe uma localidade com o codigo: {message.Codigo}");
                 return ValidationResult;
@@ -44,7 +44,7 @@ namespace DesafioBaltaIO.Application.Ibge.Commands
 
             await _localidadeReporitory.CadastrarLocalidadeAsync(localidade);
 
-            localidade.AddDomainEvent(new LocalidadeCadastradaEvent(localidade.Codigo));
+            localidade.AddDomainEvent(new LocalidadeCadastradaEvent(localidade.Codigo, message.DataCadastro));
 
             return await Commit(_localidadeReporitory.UnitOfWork);
         }

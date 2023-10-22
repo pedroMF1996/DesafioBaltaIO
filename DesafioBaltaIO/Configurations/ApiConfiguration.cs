@@ -1,4 +1,5 @@
 ﻿using DesafioBaltaIO.Data.IBGE;
+using Microsoft.AspNetCore.Cors.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 
@@ -24,6 +25,16 @@ namespace DesafioBaltaIO.Configurations
             services.AddEndpointsApiExplorer();
             services.AddSwaggerConfiguration();
 
+            services.AddCustomValidationClaim();
+
+            services.AddCors(opt =>
+            {
+                opt.AddPolicy("total",builder => 
+                    builder.AllowAnyHeader()
+                           .AllowAnyOrigin()
+                           .AllowAnyMethod());
+            });
+
             return services;
         }
 
@@ -31,6 +42,7 @@ namespace DesafioBaltaIO.Configurations
         {
             app.UseSwaggerConfiguration(environment);
             app.UseHttpsRedirection();
+            app.UseCors("total");
             app.UseAuthConfiguration();
 
             return app;

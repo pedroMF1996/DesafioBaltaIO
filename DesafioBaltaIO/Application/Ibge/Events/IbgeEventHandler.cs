@@ -1,6 +1,8 @@
-﻿using DesafioBaltaIO.Domain.IBGE.Interfaces;
+﻿using DesafioBaltaIO.Application.Ibge.Commands;
+using DesafioBaltaIO.Domain.IBGE.Interfaces;
 using MediatR;
 using NetDevPack.Identity.User;
+using NetDevPack.Mediator;
 
 namespace DesafioBaltaIO.Application.Ibge.Events
 {
@@ -9,28 +11,41 @@ namespace DesafioBaltaIO.Application.Ibge.Events
     {
         private readonly ILocalidadeReository _localidadeReository;
         private readonly IAspNetUser _user;
+        private readonly IMediatorHandler _mediatorHandler;
 
-        public IbgeEventHandler(ILocalidadeReository localidadeReository, IAspNetUser user)
+        public IbgeEventHandler(ILocalidadeReository localidadeReository, IAspNetUser user, IMediatorHandler mediatorHandler)
         {
             _localidadeReository = localidadeReository;
             _user = user;
+            _mediatorHandler = mediatorHandler;
         }
 
         public async Task Handle(LocalidadeCadastradaEvent notification, CancellationToken cancellationToken)
         {
-            var localidade = await _localidadeReository.ObterLocalidadePorCodigoAsync(notification.CodigoLocalidade);
+            try
+            {
+                var localidade = await _localidadeReository.ObterLocalidadePorCodigoAsync(notification.CodigoLocalidade);
 
-            if (localidade == null)
-                return;
+                if (localidade == null)
+                    throw new Exception();
 
-            var cadastranteId = _user.GetUserId();
+                var cadastranteId = _user.GetUserId();
 
-            if (!localidade.AssociarCadastrante(cadastranteId, notification.DataCadastro))
-                return;
+                if (!localidade.AssociarCadastrante(cadastranteId, notification.DataCadastro))
+                    throw new Exception();
+                                
+                _localidadeReository.AtualizarLocalidade(localidade);
 
-            _localidadeReository.AtualizarLocalidade(localidade);
-
-            await _localidadeReository.UnitOfWork.Commit();
+                await _localidadeReository.UnitOfWork.Commit();
+            }
+            catch (InvalidOperationException)
+            {
+                await CreateRollBack("Erro ao cadastrar a localidade", notification.CodigoLocalidade);
+            }
+            catch (Exception)
+            {
+                await CreateRollBack("Erro ao cadastrar a localidade", notification.CodigoLocalidade);
+            }
         }
 
         public async Task Handle(LocalidadeEditadaEvent notification, CancellationToken cancellationToken)
@@ -43,11 +58,21 @@ namespace DesafioBaltaIO.Application.Ibge.Events
             var cadastranteId = _user.GetUserId();
 
             if (!localidade.AssociarEditor(cadastranteId, notification.DataEdicao))
-                return;
+            {
+                var command = new RemoverLocalidadeCommand(notification.CodigoLocalidade);
+                await _mediatorHandler.SendCommand(command);
+            }
 
             _localidadeReository.AtualizarLocalidade(localidade);
 
             await _localidadeReository.UnitOfWork.Commit();
         }
+
+        public async Task CreateRollBack(string mensagemErro, string codigoLocalidade)
+        {
+            var command = new RemoverLocalidadeCommand(codigoLocalidade);
+            await _mediatorHandler.SendCommand(command);
+            throw new ArgumentException(mensagemErro);
+        }        
     }
 }
