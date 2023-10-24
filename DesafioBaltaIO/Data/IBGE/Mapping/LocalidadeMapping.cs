@@ -10,34 +10,38 @@ namespace DesafioBaltaIO.Data.IBGE.Mapping
         {
             builder.HasKey(x => x.Id);
 
+            builder.Property(x => x.Id)
+                .IsRequired()
+                .HasColumnType("uniqueidentifier");
+
             builder.Property(x => x.Codigo)
                 .IsRequired()
-                .HasColumnType("TEXT")
+                .HasColumnType("nvarchar")
                 .HasMaxLength(7);
 
             builder.Property(x => x.Estado)
                 .IsRequired()
-                .HasColumnType("TEXT")
+                .HasColumnType("nvarchar")
                 .HasMaxLength(2);
 
             builder.Property(x => x.Cidade)
                 .IsRequired()
-                .HasColumnType("TEXT");
+                .HasColumnType("nvarchar(160)");
 
             builder.Property(x => x.CadastradoPor)
-                .HasColumnType("TEXT")
+                .HasColumnType("nvarchar")
                 .HasDefaultValue(Guid.Empty);
 
             builder.Property(x => x.EditadoPor)
-                .HasColumnType("TEXT")
+                .HasColumnType("nvarchar")
                 .HasDefaultValue(Guid.Empty);
 
             builder.Property(x => x.DataCadastro)
-                .HasColumnType("INTEGER")
+                .HasColumnType("date")
                 .HasDefaultValue(DateTime.MinValue);
 
             builder.Property(x => x.DataEdicao)
-                .HasColumnType("INTEGER")
+                .HasColumnType("date")
                 .HasDefaultValue(DateTime.MinValue);
 
             builder.ToTable("Localidades");

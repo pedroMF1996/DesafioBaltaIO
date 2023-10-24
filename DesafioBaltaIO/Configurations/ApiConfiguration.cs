@@ -12,9 +12,9 @@ namespace DesafioBaltaIO.Configurations
             services.AddRegisterServices();
 
             services.AddDbContext<IbgeDbContext>(opt =>
-                opt.UseSqlite(configuration.GetConnectionString("DesafioBaltaIOSqliteConnection")));
+                opt.UseSqlServer(configuration.GetConnectionString("DesafioBaltaIOSqlServerConnection")));
 
-            services.AddIdentityConfiguration(configuration, environment);
+            services.AddIdentityConfiguration(configuration);
 
             services.AddMediatR(cfg =>
                 cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));

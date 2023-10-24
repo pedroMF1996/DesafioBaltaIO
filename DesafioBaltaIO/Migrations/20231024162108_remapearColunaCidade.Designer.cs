@@ -4,6 +4,7 @@ using DesafioBaltaIO.Data.IBGE;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DesafioBaltaIO.Migrations
 {
     [DbContext(typeof(IbgeDbContext))]
-    partial class IbgeDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231024162108_remapearColunaCidade")]
+    partial class remapearColunaCidade
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
